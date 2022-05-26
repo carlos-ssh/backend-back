@@ -1,59 +1,15 @@
-import { useState } from 'react'
-import { REGISTER_URL } from '../.././services'
 import Bg from '../../assets/images/bg-login.jpg'
 import Lock from '../../assets/icons/lock.svg'
 import Aroba from '../../assets/icons/aroba.svg'
 
-const SignUp = ({setCurrentUser}) => {
-  const [error, setError] = useState(false)
-  const [success, setSuccess] = useState(false)
-  const [formData, setFormData] = useState({
-    email: '',
-    password: ''
-  })
+const SignUp = () => {
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    })
-  }
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    fetch(REGISTER_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    }).then((res) => {
-      if (res.ok) {
-        res.json().then((user) => {
-          setCurrentUser(user);
-          setSuccess(true)
-          setTimeout(() => {
-            setSuccess(false)
-          }, 3000)
-        });
-      } else {
-        res.json().then((errors) => {
-          console.error(errors);
-          setError(true)
-          setTimeout(() => {
-            setError(false)
-          }, 3000)
-        });
-      }
-    });
-  };
-  
   return (
     <div>
-      <div className="relative min-h-screen  grid bg-black ">
+      <div className="relative min-h-screen grid bg-black ">
         <div className="flex flex-col sm:flex-row items-center md:items-start sm:justify-center md:justify-start flex-auto min-w-0 ">
           <div
-            className="sm:w-1/2 xl:w-3/5 bg-gradient-to-r from-violet-500 to-fuchsia-500 h-full hidden md:flex flex-auto items-center justify-center p-10 overflow-hidden  text-white bg-no-repeat bg-cover relative">
+            className="sm:w-1/2 min-h-screen xl:w-3/5 bg-gradient-to-r from-violet-500 to-fuchsia-500 h-full hidden md:flex flex-auto items-center justify-center p-10 overflow-hidden  text-white bg-no-repeat bg-cover relative">
             <div className="absolute bg-black opacity-25 inset-0 z-0">
               <img className="min-h-screen" src={Bg} alt="bg" />
             </div>
@@ -79,64 +35,53 @@ const SignUp = ({setCurrentUser}) => {
               </div>
               <div className="flex flex-row justify-center items-center space-x-3">
               </div>
-              {error ? (
-                  <div className="flex items-center justify-center mt-10 bg-red-600 p-5 rounded">
-                    <p className="text-sm text-white">
-                      El correo o la contraseña no son correctos
-                    </p>
-                  </div>
-                ) : null}
-                {success ? (
-                  <div className="flex items-center justify-center mt-10 bg-green-600 p-5 rounded">
-                    <p className="text-sm text-white">
-                      Cuenta creada con exito
-                    </p>
-                  </div>
-                ) : null}
+              {/* {error ? ( */}
+              {/*     <div className="flex items-center justify-center mt-10 bg-red-600 p-5 rounded"> */}
+              {/*       <p className="text-sm text-white"> */}
+              {/*         El correo o la contraseña no son correctos */}
+              {/*       </p> */}
+              {/*     </div> */}
+              {/*   ) : null} */}
+              {/*   {success ? ( */}
+              {/*     <div className="flex items-center justify-center mt-10 bg-green-600 p-5 rounded"> */}
+              {/*       <p className="text-sm text-white"> */}
+              {/*         Cuenta creada con exito */}
+              {/*       </p> */}
+              {/*     </div> */}
+              {/*   ) : null} */}
 
-              <form
-                className=""
-                onSubmit={handleSubmit}
-              >
+              <form className="">
                 <div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
                   <img src={Aroba} alt="lock" className="w-6 h-6" />
                   <input
-                  className="pl-2 outline-none border-none w-full bg-transparent text-white "
-                  type="email"
-                  name=""
-                  id=""
-                  placeholder="Correo electronico"
-                  value={formData.email}
-                  onChange={handleChange}
-                />
+                    className="pl-2 outline-none border-none w-full bg-transparent text-white "
+                    type="email"
+                    name=""
+                    id=""
+                    placeholder="Correo electronico"
+                  />
                 </div>
-
                 <div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
-                  <img src={Lock} alt="lock" />
+                  <img src={Aroba} alt="lock" className="w-6 h-6" />
                   <input
-                    className="pl-2 outline-none w-full border-none bg-transparent text-white"
+                    className="pl-2 outline-none border-none w-full bg-transparent text-white "
                     type="password"
                     name=""
                     id=""
                     placeholder="Contraseña"
-                    value={formData.password}
-                    onChange={handleChange}
                   />
                 </div>
-
                 <div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
-                  <img src={Lock} alt="lock" />
+                  <img src={Lock} alt="lock" className="w-6 h-6" />
                   <input
-                    className="pl-2 outline-none w-full border-none bg-transparent text-white"
-                    type="password" 
+                    className="pl-2 outline-none border-none w-full bg-transparent text-white "
+                    type="password"
                     name=""
                     id=""
-                    placeholder="Confirmar Contraseña"
-                    value={formData.password_confirmation}
-                    onChange={handleChange}
+                    placeholder="Confirmar contraseña"
                   />
                 </div>
-                  <div className="flex flex-col">
+                <div className="flex flex-col">
                   <span className="text-sm ml-2 text-white hover:text-blue-500 cursor-pointer">Olvidaste tu contraseña?</span>
                   <span className="text-sm mt-1 ml-2 text-white hover:text-blue-500 cursor-pointer">Iniciar Sesión</span>
                   <span className="text-sm mt-1 ml-2 text-white hover:text-blue-500 cursor-pointer">Volver</span>
